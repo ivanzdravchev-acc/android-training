@@ -1,5 +1,6 @@
 package com.example.androidtrainingproject.login
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -7,7 +8,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -15,25 +15,24 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.androidtrainingproject.R
 
-@OptIn(ExperimentalMaterial3Api::class)
+
 @Composable
 fun LoginScreen(navigateToProductDetails: () -> Unit = {}) {
     val usernameField = remember { mutableStateOf("") }
     val passwordField = remember { mutableStateOf("") }
 
     val isPasswordVisible = remember { mutableStateOf(false) }
-    val showWrongPasswordMessage = remember { mutableStateOf(false) }
 
-    val hardcodedUsername = "a"
-    val hardcodedPassword = "1234"
+    val loginViewModel: LoginViewModel = hiltViewModel()
 
     val passwordIcon = isPasswordVisible.let {
         if (isPasswordVisible.value) {
@@ -88,20 +87,26 @@ fun LoginScreen(navigateToProductDetails: () -> Unit = {}) {
             },
         )
 
-        if (showWrongPasswordMessage.value) {
-            Text("Invalid login credentials", color = Color.Red)
+        loginViewModel.isLoginSuccessful?.let { isLoggedIn ->
+            if (isLoggedIn) {
+                navigateToProductDetails()
+                Toast.makeText(LocalContext.current, "Login successful", Toast.LENGTH_SHORT).show()
+                loginViewModel.isLoginSuccessful = null
+            } else {
+                Toast.makeText(LocalContext.current, "Invalid login credentials", Toast.LENGTH_SHORT).show()
+                loginViewModel.isLoginSuccessful = null
+            }
         }
 
         Button(
             modifier = Modifier
                 .padding(horizontal = 20.dp)
                 .fillMaxWidth(),
+            enabled = !loginViewModel.isLoading,
             onClick = {
-                if (usernameField.value == hardcodedUsername && passwordField.value == hardcodedPassword) {
-                    navigateToProductDetails()
-                } else {
-                    showWrongPasswordMessage.value = true;
-                }
+                loginViewModel.login(usernameField.value, passwordField.value)
+                loginViewModel.isLoading = true
+
                 passwordField.value = ""
             }
         ) {
