@@ -14,8 +14,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
@@ -25,6 +27,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.androidtrainingproject.R
 
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun LoginScreen(navigateToProductDetails: () -> Unit = {}) {
     val usernameField = remember { mutableStateOf("") }
@@ -36,11 +39,13 @@ fun LoginScreen(navigateToProductDetails: () -> Unit = {}) {
 
     val passwordIcon = isPasswordVisible.let {
         if (isPasswordVisible.value) {
-            R.drawable.ic_visibility_on;
+            R.drawable.ic_visibility_on
         } else {
             R.drawable.ic_visibility_off
         }
     }
+
+    val keyboardController = LocalSoftwareKeyboardController.current
 
     Column(modifier = Modifier.padding(10.dp)) {
         Image(
@@ -87,15 +92,9 @@ fun LoginScreen(navigateToProductDetails: () -> Unit = {}) {
             },
         )
 
-        loginViewModel.isLoginSuccessful?.let { isLoggedIn ->
-            if (isLoggedIn) {
-                navigateToProductDetails()
-                Toast.makeText(LocalContext.current, "Login successful", Toast.LENGTH_SHORT).show()
-                loginViewModel.isLoginSuccessful = null
-            } else {
-                Toast.makeText(LocalContext.current, "Invalid login credentials", Toast.LENGTH_SHORT).show()
-                loginViewModel.isLoginSuccessful = null
-            }
+        if (loginViewModel.loginFailure) {
+            Toast.makeText(LocalContext.current, "Invalid login credentials", Toast.LENGTH_SHORT).show()
+            loginViewModel.loginFailure = false
         }
 
         Button(
@@ -104,10 +103,10 @@ fun LoginScreen(navigateToProductDetails: () -> Unit = {}) {
                 .fillMaxWidth(),
             enabled = !loginViewModel.isLoading,
             onClick = {
-                loginViewModel.login(usernameField.value, passwordField.value)
-                loginViewModel.isLoading = true
-
+                loginViewModel.login(usernameField.value, passwordField.value, navigateToProductDetails)
                 passwordField.value = ""
+
+                keyboardController?.hide()
             }
         ) {
             Text("Log in")

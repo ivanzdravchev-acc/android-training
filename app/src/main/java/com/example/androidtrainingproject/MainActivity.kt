@@ -52,25 +52,21 @@ class MainActivity : ComponentActivity() {
                 ) {
                     Scaffold(
                         topBar = {
-                            if (!canPop) {
-                                TopAppBar(title = {
+                            TopAppBar(
+                                title = {
                                     Text(text = "Title", maxLines = 1, overflow = TextOverflow.Ellipsis)
-                                })
-                            } else {
-                                TopAppBar(
-                                    title = {
-                                        Text(text = "Title", maxLines = 1, overflow = TextOverflow.Ellipsis)
-                                    },
-                                    navigationIcon = {
+                                },
+                                navigationIcon = {
+                                    if (canPop) {
                                         IconButton(onClick = navController::popBackStack) {
                                             Icon(Icons.Filled.ArrowBack, "back")
                                         }
-                                    },
-                                    colors = TopAppBarDefaults.topAppBarColors(
-                                        containerColor = MaterialTheme.colorScheme.tertiary
-                                    )
+                                    }
+                                },
+                                colors = TopAppBarDefaults.topAppBarColors(
+                                    containerColor = MaterialTheme.colorScheme.tertiary
                                 )
-                            }
+                            )
                         }
                     ) {
                         NavHost(

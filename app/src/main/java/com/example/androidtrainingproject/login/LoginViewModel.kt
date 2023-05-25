@@ -18,20 +18,21 @@ import javax.inject.Inject
 class LoginViewModel @Inject constructor(
     private val repository: DefaultRepository
 ): ViewModel() {
-    var isLoginSuccessful by mutableStateOf<Boolean?>(null)
+    var loginFailure by mutableStateOf(false)
     var isLoading by mutableStateOf(false)
     var loginResponse = mutableStateOf(null as LoginResponse?)
 
-    fun login(username: String, password: String) {
+    fun login(username: String, password: String, navigateToProductDetails: () -> Unit = {}) {
         viewModelScope.launch {
             try {
+                isLoading = true
                 val body = LoginRequestBody(username, password)
                 val response: LoginResponse = repository.login(body)
                 APIClient.setUserJwt(response.jwt)
-                loginResponse.value = response;
-                isLoginSuccessful = true
+                loginResponse.value = response
+                navigateToProductDetails()
             } catch (e: Exception) {
-                isLoginSuccessful = false
+                loginFailure = true
                 Log.e("login error", e.toString())
             } finally {
                 isLoading = false
