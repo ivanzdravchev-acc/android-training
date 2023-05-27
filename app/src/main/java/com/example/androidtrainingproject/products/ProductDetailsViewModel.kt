@@ -18,11 +18,14 @@ class ProductDetailsViewModel @Inject constructor(
 ): ViewModel() {
     var productData by mutableStateOf(null as ProductResponse?)
 
-    fun getProductById(id: Number) {
+    init {
+        getProductById(1, "*")
+    }
+
+    private fun getProductById(id: Number, populate: String) {
         viewModelScope.launch {
             try {
-                val response: ProductResponse = repository.getProductById(id)
-                productData = response
+                productData = repository.getProductById(id, populate)
             } catch (e: Exception) {
                 Log.e("error fetching product info", e.toString())
             }

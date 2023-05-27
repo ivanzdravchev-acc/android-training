@@ -7,5 +7,8 @@ import com.example.androidtrainingproject.models.ProductResponse
 interface ApiHelper {
     suspend fun login(body: LoginRequestBody): LoginResponse
 
-    suspend fun getProductById(id: Number): ProductResponse
+    suspend fun getProductById(
+        id: Number,
+        populate: String
+    ): ProductResponse
 }

@@ -6,7 +6,7 @@ data class ProductResponse(
     val description: String,
     val short_description: String,
     val stock: Number,
-    val price: Number,
+    val price: Double,
     val rating: Number,
     val image: String,
     val category: String

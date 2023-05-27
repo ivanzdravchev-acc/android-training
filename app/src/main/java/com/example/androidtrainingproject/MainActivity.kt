@@ -41,47 +41,22 @@ class MainActivity : ComponentActivity() {
             AndroidTrainingProjectTheme {
                 val navController = rememberNavController()
 
-                var canPop by remember { mutableStateOf(false) }
-                navController.addOnDestinationChangedListener { controller, _, _ ->
-                    canPop = controller.previousBackStackEntry != null
-                }
-
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Scaffold(
-                        topBar = {
-                            TopAppBar(
-                                title = {
-                                    Text(text = "Title", maxLines = 1, overflow = TextOverflow.Ellipsis)
-                                },
-                                navigationIcon = {
-                                    if (canPop) {
-                                        IconButton(onClick = navController::popBackStack) {
-                                            Icon(Icons.Filled.ArrowBack, "back")
-                                        }
-                                    }
-                                },
-                                colors = TopAppBarDefaults.topAppBarColors(
-                                    containerColor = MaterialTheme.colorScheme.tertiary
-                                )
-                            )
-                        }
+                    NavHost(
+                        navController = navController,
+                        startDestination = "Login",
+                        //modifier = Modifier.padding(it)
                     ) {
-                        NavHost(
-                            navController = navController,
-                            startDestination = "Login",
-                            modifier = Modifier.padding(it)
-                        ) {
-                            composable(route = "Login") {
-                                LoginScreen(navigateToProductDetails = {
-                                    navController.navigate("ProductDetails")
-                                })
-                            }
-                            composable(route = "ProductDetails") {
-                                ProductDetails(1)
-                            }
+                        composable(route = "Login") {
+                            LoginScreen(navigateToProductDetails = {
+                                navController.navigate("ProductDetails")
+                            })
+                        }
+                        composable(route = "ProductDetails") {
+                            ProductDetails()
                         }
                     }
                 }

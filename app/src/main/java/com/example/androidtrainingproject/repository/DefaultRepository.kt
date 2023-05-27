@@ -8,5 +8,8 @@ import com.example.androidtrainingproject.networking.API
 class DefaultRepository(private val apiService: API): ApiHelper {
     override suspend fun login(body: LoginRequestBody): LoginResponse = apiService.login(body)
 
-    override suspend fun getProductById(id: Number): ProductResponse = apiService.getProductById((id))
+    override suspend fun getProductById(
+        id: Number,
+        populate: String
+    ): ProductResponse = apiService.getProductById(id, populate)
 }
