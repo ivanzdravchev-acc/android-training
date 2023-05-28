@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="padding_xs">5dp</dimen>
+    <dimen name="padding_sm">10dp</dimen>
+    <dimen name="padding_sm_plus">15dp</dimen>
+    <dimen name="padding_m">20dp</dimen>
+    <dimen name="padding_m_plus">25dp</dimen>
+    <dimen name="padding_l">30dp</dimen>
+    <dimen name="padding_l_plus">35dp</dimen>
+    <dimen name="padding_xl">40dp</dimen>
+    <dimen name="padding_xl_plus">45dp</dimen>
+    <dimen name="padding_xxl">50dp</dimen>
+
+    <dimen name="font_size_sm">12sp</dimen>
+    <dimen name="font_size_sm_plus">14sp</dimen>
+    <dimen name="font_size_m">16sp</dimen>
+    <dimen name="font_size_l">20sp</dimen>
+    <dimen name="font_size_xl">24sp</dimen>
+    <dimen name="font_size_xxl">30sp</dimen>
+
+    <dimen name="icon_small">16dp</dimen>
+    <dimen name="icon_normal">32dp</dimen>
+
+    <dimen name="padding_logo_top">75dp</dimen>
+</resources>
