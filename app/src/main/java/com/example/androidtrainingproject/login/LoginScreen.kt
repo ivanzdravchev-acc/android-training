@@ -8,13 +8,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -37,6 +37,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.androidtrainingproject.R
+import com.example.androidtrainingproject.ui.shared.WideButton
 import com.example.androidtrainingproject.ui.theme.ErrorDarkRed
 import com.example.androidtrainingproject.ui.theme.Purple
 
@@ -51,6 +52,7 @@ fun LoginScreen(navigateToProductDetails: () -> Unit = {}) {
     var isPasswordVisible by remember { mutableStateOf(false) }
 
     val loginViewModel: LoginViewModel = hiltViewModel()
+    val loginFailure by loginViewModel.loginFailure.collectAsState()
 
     val passwordIcon = isPasswordVisible.let {
         if (isPasswordVisible) {
@@ -60,7 +62,16 @@ fun LoginScreen(navigateToProductDetails: () -> Unit = {}) {
         }
     }
 
+    val context = LocalContext.current
+    val loginFailureMessage = stringResource(id = R.string.login_failure)
     val keyboardController = LocalSoftwareKeyboardController.current
+
+    LaunchedEffect(loginFailure) {
+        if (loginFailure == true) {
+            Toast.makeText(context, loginFailureMessage, Toast.LENGTH_SHORT).show()
+            markInputsAsWrong = true
+        }
+    }
 
     Column(modifier = Modifier
         .fillMaxSize()
@@ -131,28 +142,15 @@ fun LoginScreen(navigateToProductDetails: () -> Unit = {}) {
             },
         )
 
-        if (loginViewModel.loginFailure) {
-            Toast.makeText(LocalContext.current, stringResource(id = R.string.login_failure), Toast.LENGTH_SHORT).show()
-            markInputsAsWrong = true
-            loginViewModel.loginFailure = false
-        }
-
-        Button(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = dimensionResource(id = R.dimen.padding_sm_plus))
-                .padding(top = dimensionResource(id = R.dimen.padding_l_plus)),
+        WideButton(
+            text = stringResource(id = R.string.login_button),
             enabled = !loginViewModel.isLoading,
-            colors = ButtonDefaults.buttonColors(containerColor = Purple),
             onClick = {
                 loginViewModel.login(usernameField, passwordField, navigateToProductDetails)
                 markInputsAsWrong = false
                 passwordField = ""
 
                 keyboardController?.hide()
-            }
-        ) {
-            Text(stringResource(id = R.string.login_button))
-        }
+        })
     }
 }
