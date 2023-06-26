@@ -1,4 +1,4 @@
-package com.example.androidtrainingproject.login
+package com.example.androidtrainingproject.ui.login
 
 import android.widget.Toast
 import androidx.compose.foundation.Image
@@ -44,7 +44,7 @@ import com.example.androidtrainingproject.ui.theme.Purple
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun LoginScreen(navigateToProductDetails: () -> Unit = {}) {
+fun LoginScreen(navigateToHome: () -> Unit = {}) {
     var usernameField by remember { mutableStateOf("") }
     var passwordField by remember { mutableStateOf("") }
 
@@ -133,8 +133,8 @@ fun LoginScreen(navigateToProductDetails: () -> Unit = {}) {
                 }) {
                     Image(
                         modifier = Modifier
-                            .height(dimensionResource(id = R.dimen.icon_normal))
-                            .width(dimensionResource(id = R.dimen.icon_normal)),
+                            .height(dimensionResource(id = R.dimen.icon_large))
+                            .width(dimensionResource(id = R.dimen.icon_large)),
                         painter = painterResource(id = passwordIcon),
                         contentDescription = stringResource(id = R.string.toggle_password_visibility)
                     )
@@ -146,7 +146,7 @@ fun LoginScreen(navigateToProductDetails: () -> Unit = {}) {
             text = stringResource(id = R.string.login_button),
             enabled = !loginViewModel.isLoading,
             onClick = {
-                loginViewModel.login(usernameField, passwordField, navigateToProductDetails)
+                loginViewModel.login(usernameField, passwordField, navigateToHome)
                 markInputsAsWrong = false
                 passwordField = ""
 

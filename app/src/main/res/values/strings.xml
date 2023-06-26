@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">AndroidTrainingProject</string>
     <string name="back_arrow_description">Back</string>
+    <string name="account_box_description">Account</string>
     <string name="shopping_cart_description">Shopping Cart</string>
+    <string name="search">Search</string>
 
     <string name="login_logo_description">Ethereal Artefacts Logo</string>
     <string name="login_header">Log in</string>
@@ -10,6 +12,9 @@
     <string name="toggle_password_visibility">Toggle password visibility</string>
     <string name="login_button">Log in</string>
     <string name="login_failure">Invalid login credentials</string>
+
+    <string name="home_top_bar_text">Home</string>
+    <string name="home_new_products">New Products</string>
 
     <string name="product_top_bar_text">Item</string>
     <string name="product_image_description">Product Image</string>

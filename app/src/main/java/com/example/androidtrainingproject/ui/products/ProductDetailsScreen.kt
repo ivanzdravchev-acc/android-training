@@ -1,4 +1,4 @@
-package com.example.androidtrainingproject.products
+package com.example.androidtrainingproject.ui.products
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -17,18 +17,25 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.example.androidtrainingproject.R
 import com.example.androidtrainingproject.ui.shared.AppTopBar
 import com.example.androidtrainingproject.ui.shared.WideButton
 import com.example.androidtrainingproject.ui.theme.LabelText
 
 @Composable
-fun ProductDetails() {
+fun ProductDetails(navController: NavController, productId: Int) {
     val productDetailsViewModel: ProductDetailsViewModel = hiltViewModel()
+    productDetailsViewModel.getProductById(productId, "*")
 
     Scaffold(
         topBar = {
-            AppTopBar(middleText = stringResource(id = R.string.product_top_bar_text))
+            AppTopBar(
+                middleText = stringResource(id = R.string.product_top_bar_text),
+                navController = navController,
+                backIcon = true,
+                cartIcon = true
+            )
         }
     ) { paddingValues ->
         Column(

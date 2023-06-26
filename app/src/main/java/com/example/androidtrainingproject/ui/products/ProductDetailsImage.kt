@@ -1,4 +1,4 @@
-package com.example.androidtrainingproject.products
+package com.example.androidtrainingproject.ui.products
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -56,7 +56,7 @@ fun ProductDetailsImage(product: ProductResponse) {
             if (product.stock.toInt() > 0) {
                 Icon(
                     modifier = Modifier
-                        .height(dimensionResource(id = R.dimen.icon_normal))
+                        .height(dimensionResource(id = R.dimen.icon_large))
                         .padding(end = dimensionResource(id = R.dimen.padding_sm)),
                     imageVector = Icons.Outlined.CheckCircle,
                     contentDescription = null,
@@ -69,7 +69,7 @@ fun ProductDetailsImage(product: ProductResponse) {
             } else {
                 Icon(
                     modifier = Modifier
-                        .height(dimensionResource(id = R.dimen.icon_normal))
+                        .height(dimensionResource(id = R.dimen.icon_large))
                         .padding(end = dimensionResource(id = R.dimen.padding_sm)),
                     imageVector = Icons.Outlined.Close,
                     contentDescription = null,

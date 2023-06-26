@@ -1,4 +1,4 @@
-package com.example.androidtrainingproject.products
+package com.example.androidtrainingproject.ui.products
 
 import android.util.Log
 import androidx.compose.runtime.getValue
@@ -18,11 +18,7 @@ class ProductDetailsViewModel @Inject constructor(
 ): ViewModel() {
     var productData by mutableStateOf(null as ProductResponse?)
 
-    init {
-        getProductById(1, "*")
-    }
-
-    private fun getProductById(id: Number, populate: String) {
+    fun getProductById(id: Number, populate: String) {
         viewModelScope.launch {
             try {
                 productData = repository.getProductById(id, populate)
