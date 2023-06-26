@@ -1,4 +1,4 @@
-package com.example.androidtrainingproject.products
+package com.example.androidtrainingproject.ui.products
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Row

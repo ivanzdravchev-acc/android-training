@@ -1,4 +1,4 @@
-package com.example.androidtrainingproject.login
+package com.example.androidtrainingproject.ui.login
 
 import android.util.Log
 import androidx.compose.runtime.getValue

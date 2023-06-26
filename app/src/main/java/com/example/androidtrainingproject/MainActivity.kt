@@ -1,6 +1,7 @@
 package com.example.androidtrainingproject
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -10,11 +11,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.androidtrainingproject.login.LoginScreen
-import com.example.androidtrainingproject.products.ProductDetails
+import androidx.navigation.navArgument
+import com.example.androidtrainingproject.ui.home.Home
+import com.example.androidtrainingproject.ui.login.LoginScreen
+import com.example.androidtrainingproject.ui.products.ProductDetails
 import com.example.androidtrainingproject.ui.theme.AndroidTrainingProjectTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -35,12 +39,19 @@ class MainActivity : ComponentActivity() {
                         startDestination = "Login",
                     ) {
                         composable(route = "Login") {
-                            LoginScreen(navigateToProductDetails = {
-                                navController.navigate("ProductDetails")
+                            LoginScreen(navigateToHome = {
+                                navController.navigate("Home")
                             })
                         }
-                        composable(route = "ProductDetails") {
-                            ProductDetails()
+                        composable(route = "Home") {
+                            Home(navController)
+                        }
+                        composable(
+                            route = "productDetails/{productId}",
+                            arguments = listOf(navArgument("productId") { type = NavType.IntType })
+                        ) { backStackEntry ->
+                            val productId = backStackEntry.arguments?.getInt("productId") ?: 1
+                            ProductDetails(navController, productId = productId)
                         }
                     }
                 }

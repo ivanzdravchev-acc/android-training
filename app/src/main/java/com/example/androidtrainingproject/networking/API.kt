@@ -13,6 +13,9 @@ interface API {
     @POST(value = "auth/local")
     suspend fun login(@Body body: LoginRequestBody): LoginResponse
 
+    @GET(value = "products")
+    suspend fun getProducts(@Query("populate") populate: String) : List<ProductResponse>
+
     @GET(value = "products/{id}")
     suspend fun getProductById(
         @Path("id") productId: Number,
