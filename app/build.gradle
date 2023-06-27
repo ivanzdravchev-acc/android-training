@@ -3,6 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'com.google.dagger.hilt.android'
+    id 'com.google.devtools.ksp' version '1.8.21-1.0.11'
 }
 
 android {
@@ -29,11 +30,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '17'
     }
     buildFeatures {
         compose true
@@ -47,9 +48,9 @@ android {
         }
     }
 }
-kotlin {
-    jvmToolchain(8)
-}
+//kotlin {
+//    jvmToolchain(8)
+//}
 
 dependencies {
 
@@ -84,4 +85,8 @@ dependencies {
 
     // image from URL
     implementation("io.coil-kt:coil-compose:2.4.0")
+
+    //Navigation
+    implementation "io.github.raamcosta.compose-destinations:core:$compose_destinations"
+    ksp "io.github.raamcosta.compose-destinations:ksp:$compose_destinations"
 }

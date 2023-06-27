@@ -1,5 +1,6 @@
 package com.example.androidtrainingproject.repository
 
+import com.example.androidtrainingproject.models.CategoryModel
 import com.example.androidtrainingproject.models.LoginRequestBody
 import com.example.androidtrainingproject.models.LoginResponse
 import com.example.androidtrainingproject.models.ProductResponse
@@ -15,4 +16,7 @@ class DefaultRepository(private val apiService: API): ApiHelper {
         id: Number,
         populate: String
     ): ProductResponse = apiService.getProductById(id, populate)
+
+    override suspend fun getCategories(): List<CategoryModel> =
+        apiService.getCategories()
 }

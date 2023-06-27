@@ -1,5 +1,6 @@
 package com.example.androidtrainingproject.repository
 
+import com.example.androidtrainingproject.models.CategoryModel
 import com.example.androidtrainingproject.models.LoginRequestBody
 import com.example.androidtrainingproject.models.LoginResponse
 import com.example.androidtrainingproject.models.ProductResponse
@@ -13,4 +14,6 @@ interface ApiHelper {
         id: Number,
         populate: String
     ): ProductResponse
+
+    suspend fun getCategories(): List<CategoryModel>
 }
