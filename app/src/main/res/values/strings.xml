@@ -22,4 +22,9 @@
     <string name="add_product_button">Add to cart</string>
     <string name="product_in_stock">In stock</string>
     <string name="product_out_of_stock">Out of stock</string>
+
+    <string name="filters">Filters</string>
+    <string name="save">Save</string>
+    <string name="price_range">Price range</string>
+    <string name="product_rating">Product rating</string>
 </resources>

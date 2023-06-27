@@ -18,12 +18,13 @@ import androidx.navigation.NavController
 import com.example.androidtrainingproject.R
 import com.example.androidtrainingproject.ui.theme.Black
 import com.example.androidtrainingproject.ui.theme.White
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AppTopBar(
     middleText: String,
-    navController: NavController,
+    destinationsNavigator: DestinationsNavigator,
     backIcon: Boolean? = false,
     accountIcon: Boolean? = false,
     cartIcon: Boolean? = false
@@ -34,7 +35,7 @@ fun AppTopBar(
         },
         navigationIcon = {
             if (backIcon == true) {
-                IconButton(onClick = { navController.popBackStack() }) {
+                IconButton(onClick = { destinationsNavigator.navigateUp() }) {
                     Icon(Icons.Filled.ArrowBack, stringResource(id = R.string.back_arrow_description))
                 }
             }

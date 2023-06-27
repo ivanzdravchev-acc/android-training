@@ -17,14 +17,16 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
 import com.example.androidtrainingproject.R
 import com.example.androidtrainingproject.ui.shared.AppTopBar
 import com.example.androidtrainingproject.ui.shared.WideButton
 import com.example.androidtrainingproject.ui.theme.LabelText
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
+@Destination
 @Composable
-fun ProductDetails(navController: NavController, productId: Int) {
+fun ProductDetails(destinationsNavigator: DestinationsNavigator, productId: Number) {
     val productDetailsViewModel: ProductDetailsViewModel = hiltViewModel()
     productDetailsViewModel.getProductById(productId, "*")
 
@@ -32,7 +34,7 @@ fun ProductDetails(navController: NavController, productId: Int) {
         topBar = {
             AppTopBar(
                 middleText = stringResource(id = R.string.product_top_bar_text),
-                navController = navController,
+                destinationsNavigator = destinationsNavigator,
                 backIcon = true,
                 cartIcon = true
             )

@@ -1,5 +1,6 @@
 package com.example.androidtrainingproject.networking
 
+import com.example.androidtrainingproject.models.CategoryModel
 import com.example.androidtrainingproject.models.LoginRequestBody
 import com.example.androidtrainingproject.models.LoginResponse
 import com.example.androidtrainingproject.models.ProductResponse
@@ -21,4 +22,7 @@ interface API {
         @Path("id") productId: Number,
         @Query("populate") populate: String
     ): ProductResponse
+
+    @GET(value = "categories")
+    suspend fun getCategories(): List<CategoryModel>
 }

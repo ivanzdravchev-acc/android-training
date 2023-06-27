@@ -26,7 +26,7 @@ class LoginViewModel @Inject constructor(
     private val _loginFailure = MutableStateFlow<Boolean?>(null)
     val loginFailure: StateFlow<Boolean?> = _loginFailure
 
-    fun login(username: String, password: String, navigateToProductDetails: () -> Unit = {}) {
+    fun login(username: String, password: String) {
         _loginFailure.value = null
 
         viewModelScope.launch {
@@ -37,7 +37,6 @@ class LoginViewModel @Inject constructor(
                 APIClient.setUserJwt(response.jwt)
                 loginResponse.value = response
                 _loginFailure.value = false
-                navigateToProductDetails()
             } catch (e: Exception) {
                 _loginFailure.value = true
                 Log.e("login error", e.toString())

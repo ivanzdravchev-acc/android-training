@@ -37,16 +37,27 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.androidtrainingproject.R
+import com.example.androidtrainingproject.ui.destinations.HomeDestination
 import com.example.androidtrainingproject.ui.shared.WideButton
 import com.example.androidtrainingproject.ui.theme.ErrorDarkRed
 import com.example.androidtrainingproject.ui.theme.Purple
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.annotation.NavGraph
+import com.ramcosta.composedestinations.annotation.RootNavGraph
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
-
+@RootNavGraph
+@NavGraph
+annotation class LoginNavGraph(
+    val start: Boolean = false
+)
+@LoginNavGraph(start = true)
+@Destination
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun LoginScreen(navigateToHome: () -> Unit = {}) {
-    var usernameField by remember { mutableStateOf("") }
-    var passwordField by remember { mutableStateOf("") }
+fun LoginScreen(destinationsNavigator: DestinationsNavigator) {
+    var usernameField by remember { mutableStateOf("test@test.com") }
+    var passwordField by remember { mutableStateOf("test123") }
 
     var markInputsAsWrong by remember { mutableStateOf(false) }
     var isPasswordVisible by remember { mutableStateOf(false) }
@@ -70,6 +81,8 @@ fun LoginScreen(navigateToHome: () -> Unit = {}) {
         if (loginFailure == true) {
             Toast.makeText(context, loginFailureMessage, Toast.LENGTH_SHORT).show()
             markInputsAsWrong = true
+        } else if (loginFailure == false) {
+            destinationsNavigator.navigate(HomeDestination)
         }
     }
 
@@ -146,7 +159,7 @@ fun LoginScreen(navigateToHome: () -> Unit = {}) {
             text = stringResource(id = R.string.login_button),
             enabled = !loginViewModel.isLoading,
             onClick = {
-                loginViewModel.login(usernameField, passwordField, navigateToHome)
+                loginViewModel.login(usernameField, passwordField)
                 markInputsAsWrong = false
                 passwordField = ""
 

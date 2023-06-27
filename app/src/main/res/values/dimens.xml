@@ -26,4 +26,5 @@
     <dimen name="home_image_size">130dp</dimen>
     <dimen name="divider_size">1dp</dimen>
     <dimen name="home_custom_line_height">15dp</dimen>
+    <dimen name="category_row_height">20dp</dimen>
 </resources>
