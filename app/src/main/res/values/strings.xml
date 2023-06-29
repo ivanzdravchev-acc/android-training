@@ -27,4 +27,23 @@
     <string name="save">Save</string>
     <string name="price_range">Price range</string>
     <string name="product_rating">Product rating</string>
+
+    <string name="cart_top_bar_text">Cart</string>
+    <string name="empty_cart_message">Your cart is empty. Go to our products</string>
+    <string name="cart_item_quantity">Quantity:</string>
+    <string name="cart_items_count_text">Items:</string>
+    <string name="cart_item_total_text">Total:</string>
+    <string name="checkout">Check out</string>
+    <string name="checkout_alert_title">Confirm order</string>
+    <string name="checkout_alert_text">Do you wish to confirm your order? This will clear your shopping cart</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
+
+    <string name="user_profile">Profile</string>
+    <string name="order_history">Order history</string>
+    <string name="logout">Log out</string>
+
+    <string name="order_history_items">items</string>
+    <string name="order_history_date">Date:</string>
+    <string name="total_cost">Total: $</string>
 </resources>

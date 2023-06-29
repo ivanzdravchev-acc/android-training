@@ -13,6 +13,10 @@ class APIClient {
         fun setUserJwt(newJwt: String) {
             this.jwt = newJwt
         }
+
+        fun clearJwt() {
+            this.jwt = ""
+        }
     }
     private val DEFAULT_TIMEOUT = 1L
 

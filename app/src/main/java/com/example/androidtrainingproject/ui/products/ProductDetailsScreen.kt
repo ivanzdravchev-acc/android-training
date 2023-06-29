@@ -17,7 +17,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.androidtrainingproject.GlobalStorage
 import com.example.androidtrainingproject.R
+import com.example.androidtrainingproject.ui.destinations.HomeDestination
 import com.example.androidtrainingproject.ui.shared.AppTopBar
 import com.example.androidtrainingproject.ui.shared.WideButton
 import com.example.androidtrainingproject.ui.theme.LabelText
@@ -76,7 +78,10 @@ fun ProductDetails(destinationsNavigator: DestinationsNavigator, productId: Numb
                 WideButton(
                     text = stringResource(id = R.string.add_product_button),
                     enabled = true,
-                    onClick = {}
+                    onClick = {
+                        GlobalStorage.addProduct(product)
+                        destinationsNavigator.navigate(HomeDestination)
+                    }
                 )
             }
         }
