@@ -72,7 +72,7 @@ fun CategoriesAccordion(
                 )
                 Icon(
                     modifier = Modifier.rotate(rotateState.value),
-                    painter = painterResource(id = R.drawable.expand_more),
+                    painter = painterResource(id = R.drawable.ic_chevron_down),
                     contentDescription = null
                 )
             }

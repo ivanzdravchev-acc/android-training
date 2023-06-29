@@ -132,22 +132,24 @@ fun Home(destinationsNavigator: DestinationsNavigator) {
                 )
                 Spacer(modifier = Modifier.weight(0.5f))
                 Box {
-                    Text(
-                        text = "$activeFiltersCount",
-                        color = White,
-                        modifier = Modifier
-                            .align(Alignment.TopEnd)
-                            .offset(
-                                x = dimensionResource(id = R.dimen.padding_xs),
-                                y = -dimensionResource(id = R.dimen.padding_xs)
-                            )
-                            .drawBehind {
-                                drawCircle(
-                                    color = Purple,
-                                    radius = 24f
+                    if (activeFiltersCount > 0) {
+                        Text(
+                            text = "$activeFiltersCount",
+                            color = White,
+                            modifier = Modifier
+                                .align(Alignment.TopEnd)
+                                .offset(
+                                    x = dimensionResource(id = R.dimen.padding_xs),
+                                    y = -dimensionResource(id = R.dimen.padding_xs)
                                 )
-                            },
-                    )
+                                .drawBehind {
+                                    drawCircle(
+                                        color = Purple,
+                                        radius = 24f
+                                    )
+                                },
+                        )
+                    }
                     Icon(
                         painter = painterResource(id = R.drawable.ic_filter_list),
                         contentDescription = null,
@@ -244,7 +246,9 @@ fun Home(destinationsNavigator: DestinationsNavigator) {
                         modifier = Modifier.padding(horizontal = dimensionResource(id = R.dimen.padding_l))
                     ) {
                         Row {
-                            Icon(Icons.Outlined.Close, contentDescription = null,
+                            Icon(
+                                Icons.Outlined.Close,
+                                contentDescription = null,
                                 modifier = Modifier.clickable {
                                     homeViewModel.removeAllFilters()
                                     coroutineScope.launch {

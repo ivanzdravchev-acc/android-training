@@ -6,6 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.androidtrainingproject.GlobalStorage
 import com.example.androidtrainingproject.models.LoginRequestBody
 import com.example.androidtrainingproject.models.LoginResponse
 import com.example.androidtrainingproject.networking.APIClient
@@ -21,7 +22,6 @@ class LoginViewModel @Inject constructor(
     private val repository: DefaultRepository
 ): ViewModel() {
     var isLoading by mutableStateOf(false)
-    var loginResponse = mutableStateOf(null as LoginResponse?)
 
     private val _loginFailure = MutableStateFlow<Boolean?>(null)
     val loginFailure: StateFlow<Boolean?> = _loginFailure
@@ -34,8 +34,8 @@ class LoginViewModel @Inject constructor(
                 isLoading = true
                 val body = LoginRequestBody(username, password)
                 val response: LoginResponse = repository.login(body)
+                GlobalStorage.userEmail.value = response.user.email
                 APIClient.setUserJwt(response.jwt)
-                loginResponse.value = response
                 _loginFailure.value = false
             } catch (e: Exception) {
                 _loginFailure.value = true

@@ -12,9 +12,9 @@ import com.example.androidtrainingproject.R
 import com.example.androidtrainingproject.ui.theme.Purple
 
 @Composable
-fun WideButton(text: String, enabled: Boolean, onClick: () -> Unit) {
+fun WideButton(modifier: Modifier = Modifier, text: String, enabled: Boolean, onClick: () -> Unit) {
     Button(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(horizontal = dimensionResource(id = R.dimen.padding_sm_plus))
             .padding(top = dimensionResource(id = R.dimen.padding_l_plus)),
